@@ -1,5 +1,6 @@
 import { useState, useRef } from 'react';
 import './App.css';
+import DetailsOfTasksCom from './DetailsOfTasksComp';
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
         priority: 0
       },
       {
-        name: "Task2",
+        name: "Clean",
         place: "House",
         priority: 1
       }
@@ -24,10 +25,8 @@ function App() {
   let placeRef = useRef("")
   let priorityRef = useRef(0)
 
-  let formRef = useRef()
-
   // Adding the task to the list
-  let addTaskWithReferences = () => {
+  let addTask = () => {
     let newTask = {
       name : nameRef.current.value,
       place : placeRef.current.value,
@@ -41,48 +40,28 @@ function App() {
     priorityRef.current.value = 0
   }
 
-
-  // Adding the task to the list with form
-  let addTaskWithFormReferences = () => {
-    let formData = new FormData(formRef.current)
-
-    let newTask = {
-      name : formData.get("name"),
-      place : formData.get("place"),
-      priority : formData.get("priority")
-    }
-    
-    setTask([...task, newTask])
-  }
-
   return (
     <>
-      <div>
-        <h2>Add a task</h2>
-        <input ref = {nameRef} type="text" placeholder='name'></input>
-        <input ref = {placeRef} type="text" placeholder='place'></input>
-        <input ref = {priorityRef} type="number" placeholder='priority'></input>
-        <button onClick={addTaskWithReferences}>Add the task</button>
-
-
-        <h2>Add a task with a Form Ref</h2>
-        <form ref={formRef}>
-          <input name="name" type="text" placeholder='name'></input>
-          <input name="place" type="text" placeholder='place'></input>
-          <input name="priority" type="number" placeholder='priority'></input>
-        </form>
-        <button onClick={addTaskWithFormReferences}>Add the task</button>
-
-
-        <ul>
+      <div className='container'>
+        <h1>List of tasks</h1>
+        <ul className='taks-list'>
           { task.map (t =>
-            <li>
+            <li key = {t.name}>
               <b>{t.name}</b>
-              <div>Place {t.place}</div>
-              <div>Place: {t.place}</div>
             </li>)
           }
-        </ul>       
+        </ul>  
+
+        <div className='task-form'>
+          <h2>Add a task</h2>
+          <input ref = {nameRef} type="text" placeholder='name'></input>
+          <input ref = {placeRef} type="text" placeholder='place'></input>
+          <input ref = {priorityRef} type="number" placeholder='priority'></input>
+          <button onClick={addTask}>Add the task</button>
+        </div>
+        
+
+        <DetailsOfTasksCom/>
       </div>
     </>
   );
