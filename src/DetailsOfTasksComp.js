@@ -1,5 +1,4 @@
 
-
 let DetailsOfTasksCom = (props) => {
     let { task } = props
 
