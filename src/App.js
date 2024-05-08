@@ -5,7 +5,7 @@ import DetailsOfTasksCom from './DetailsOfTasksComp';
 function App() {
 
   // List variable to save the different tasks
-  let [task, setTask] = useState(
+  let [tasks, setTask] = useState(
     [
       {
         name: "Task1",
@@ -33,11 +33,18 @@ function App() {
       priority : priorityRef.current.value,
     }
 
-    setTask([...task, newTask])
+    setTask([...tasks, newTask])
 
     nameRef.current.value = ""
     placeRef.current.value = ""
     priorityRef.current.value = 0
+  }
+
+  let [taskSelected, setTaskSelected] = useState({})
+
+  let onClickSelectedTask = (name) => {
+    let task = tasks.find(t => t.name === name)
+    setTaskSelected(task)
   }
 
   return (
@@ -45,8 +52,8 @@ function App() {
       <div className='container'>
         <h1>List of tasks</h1>
         <ul className='taks-list'>
-          { task.map (t =>
-            <li key = {t.name}>
+          { tasks.map (t =>
+            <li key = {t.name} onClick={onClickSelectedTask}>
               <b>{t.name}</b>
             </li>)
           }
@@ -61,7 +68,7 @@ function App() {
         </div>
         
 
-        <DetailsOfTasksCom/>
+        <DetailsOfTasksCom task = {taskSelected}/>
       </div>
     </>
   );
