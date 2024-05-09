@@ -1,11 +1,7 @@
+import { Link } from 'react-router-dom';
 
 let ListOfTasksComp = (props) => {
-    let { tasks, setTask, setTaskSelected } = props
-
-    let onClickSelectedTask = (name) => {
-        let task = tasks.find(t => t.name == name)
-        setTaskSelected(task)
-    }
+    let { tasks, setTask } = props
 
     let deletetTaskSelected = (name) => {
         let otherTasks = tasks.filter(t => t.name != name)
@@ -17,9 +13,8 @@ let ListOfTasksComp = (props) => {
             <h1>List of tasks</h1>
             <ul className='task-list'>
                 { tasks.map (t =>
-                    <li key = {t.name} onClick={ () => {onClickSelectedTask(t.name)}}>
-                        {t.name}
-                        
+                    <li key = {t.name}>
+                        <Link to = {"/detailOfTasks/" + t.name}>{t.name}</Link>               
                         <button className="delete-button" onClick={() => {deletetTaskSelected(t.name)}}>
                             Delete Task
                         </button>

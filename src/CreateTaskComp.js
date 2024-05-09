@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 let CreateTaskComp = (props) => {
     let {tasks, setTask} = props
@@ -8,6 +9,7 @@ let CreateTaskComp = (props) => {
     let placeRef = useRef("")
     let priorityRef = useRef(0)
 
+    let navigate = useNavigate()
 
      // Adding the task to the list
     let addTask = () => {
@@ -22,6 +24,7 @@ let CreateTaskComp = (props) => {
         nameRef.current.value = ""
         placeRef.current.value = ""
         priorityRef.current.value = 0
+        navigate("/")
     }
 
     return (

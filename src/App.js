@@ -3,6 +3,7 @@ import './App.css';
 import DetailsOfTasksCom from './DetailsOfTasksComp';
 import ListOfTasksComp from './ListOfTasksComp';
 import CreateTaskComp from './CreateTaskComp';
+import { Routes, Route, Link } from 'react-router-dom';
 
 
 function App() {
@@ -22,15 +23,31 @@ function App() {
     ]
   )
 
-  let [taskSelected, setTaskSelected] = useState({})
-
 
   return (
     <>
       <div className='container'>
-        <ListOfTasksComp tasks = {tasks} setTask = {setTask} setTaskSelected={setTaskSelected}/>
-        <CreateTaskComp tasks = {tasks} setTask = {setTask}/>              
-        <DetailsOfTasksCom task = {taskSelected}/>
+
+        <nav>
+          <ul className='navbar'>
+            <li><Link to="/">Task</Link></li>
+            <li><Link to="/createTasks">Add Task</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={
+            <ListOfTasksComp tasks = {tasks} setTask = {setTask}/>}>
+          </Route>
+
+          <Route path="/createTasks" element={
+            <CreateTaskComp tasks = {tasks} setTask = {setTask}/>}>
+          </Route>
+
+          <Route path="/detailOfTasks/:name" element={
+            <DetailsOfTasksCom tasks = {tasks}/>}>
+          </Route>
+        </Routes>
       </div>
     </>
   );
